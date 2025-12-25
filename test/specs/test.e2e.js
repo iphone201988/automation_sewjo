@@ -14,6 +14,7 @@ describe("🔵 Registration + OTP + Delete Account Flow", () => {
     it("CASE 1 — Create account with mimic details + verify OTP", async () => {
 
         // 1. Click Sign Up
+        
         await clickElement('android=new UiSelector().text("Sign up")',
             "Click on Sign Up");
 
