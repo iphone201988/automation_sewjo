@@ -617,7 +617,7 @@ it("CASE 6 — Verify Stitchlog search functionality", async () => {
 await driver.pause(2000);
     // ---------- First Stitchlog ----------
     await clickElement(
-        'android=new UiSelector().className("android.widget.ImageView").instance(6)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click on Plus button to add first stitchlog"
     );
 
@@ -648,7 +648,7 @@ await driver.pause(2000);
 await driver.pause(2000);
 //     // ---------- Second Stitchlog ----------
     await clickElement(
-        'android=new UiSelector().className("android.view.ViewGroup").instance(84)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click on Plus button to add second stitchlog"
     );
 
@@ -678,9 +678,9 @@ await driver.pause(2000);
     await driver.pause(2000);
     pass("STEP 1 passed — Dummy data added successfully");
 
-    /* =====================================================
-       STEP 2: Search with Wrong Entry
-    ===================================================== */
+//     /* =====================================================
+//        STEP 2: Search with Wrong Entry
+//     ===================================================== */
   await driver.pause(2000);
    await clickElement(
     'android=new UiSelector().className("android.widget.ImageView").instance(1)',
@@ -750,9 +750,9 @@ await driver.pause(2000);
 
     pass("STEP 5 passed — Search by tag working");
 
-    /* =====================================================
-       STEP 6: Search by Content
-    ===================================================== */
+//     /* =====================================================
+//        STEP 6: Search by Content
+//     ===================================================== */
 await driver.pause(2000);
     await searchField.clearValue();
     await searchField.setValue("test content 2");
@@ -770,9 +770,9 @@ await driver.pause(2000);
 
     pass("STEP 6 passed — Search by content working");
 
-    /* =====================================================
-       STEP 7: Reset Search Field
-    ===================================================== */
+//     /* =====================================================
+//        STEP 7: Reset Search Field
+//     ===================================================== */
 await driver.pause(2000);
     await clickElement(
         'android=new UiSelector().className("android.widget.ImageView").instance(2)',
@@ -793,6 +793,371 @@ await driver.pause(2000);
     pass("CASE 6 completed — Stitchlog search functionality verified");
 });
 
+it("CASE 7 — Verify Stitchlog plus (+) functionality", async () => {
+
+    /* =====================================================
+       STEP 1: Verify Quick selectors are selectable
+    ===================================================== */
+    await driver.pause(2000);
+
+    await clickElement(
+        'android=new UiSelector().resourceId("plus_open_button")',
+        "Click on Plus button"
+    );
+
+    await clickElement(
+        '~Shopping List',
+        "Select Shopping List quick selector"
+    );
+
+    await verifyElement(
+        'android=new UiSelector().text("Shopping List")',
+        "Verify Shopping List title displayed"
+    );
+
+    pass("STEP 1 passed — Quick selector selectable");
+
+
+    // /* =====================================================
+    //    STEP 2: Verify quick selectors appear after clearing title
+    // ===================================================== */
+    const shoppingTitle = await $('android=new UiSelector().text("Shopping List")');
+    await shoppingTitle.clearValue();
+    pass("Clear Shopping List title");
+
+    await driver.pause(1000);
+
+    await verifyElement(
+        '~To-Do List',
+        "Verify To-Do List quick selector displayed"
+    );
+
+    await verifyElement(
+        '~Progress',
+        "Verify Progress quick selector displayed"
+    );
+
+    pass("STEP 2 passed — Quick selectors visible after title cleared");
+
+
+    // /* =====================================================
+    //    STEP 3: Verify save with only attachment (Photo Library)
+    // ===================================================== */
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Maximize stitchlog screen"
+    );
+
+    await driver.pause(2000);
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Click Plus button"
+    );
+
+    await clickElement(
+        'android=new UiSelector().text("Photo Library")',
+        "Open Photo Library"
+    );
+
+    await driver.pause(2000);
+
+    await clickElement(
+        'android=new UiSelector().className("android.view.View").instance(14)',
+        "Select first image"
+    );
+    await clickElement(
+        'android=new UiSelector().className("android.view.View").instance(18)',
+        "Select second image"
+    );
+    await clickElement(
+        'android=new UiSelector().className("android.view.View").instance(22)',
+        "Select third image"
+    );
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.Button").instance(6)',
+        "Click Done button"
+    );
+
+    await driver.pause(1000);
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(6)',
+        "Save stitchlog with attachments only"
+    );
+
+    pass("STEP 3 passed — Stitchlog saved with only attachments");
+
+
+    /* =====================================================
+       STEP 4: Verify Open Camera feature
+    ===================================================== */
+    await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().resourceId("plus_open_button")',
+        "Click Add button"
+    );
+
+    await driver.pause(2000);
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Maximize screen"
+    );
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Click Plus button"
+    );
+
+    await clickElement(
+        '~Open Camera',
+        "Open Camera"
+    );
+
+    await driver.pause(1000);
+
+    await clickElement(
+        '~Shutter',
+        "Capture image"
+    );
+
+    await clickElement(
+        '~Done',
+        "Confirm captured image"
+    );
+
+    await driver.pause(1000);
+
+    const cameraTitle = await $('android=new UiSelector().text("Title..")');
+    await cameraTitle.setValue("Camera test");
+    pass("Enter Camera stitchlog title");
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(6)',
+        "Save camera stitchlog"
+    );
+
+    await verifyElement(
+        'android=new UiSelector().text("Camera test")',
+        "Verify Camera stitchlog created"
+    );
+
+    pass("STEP 4 passed — Open Camera working successfully");
+    /* =====================================================
+       STEP 5: Verify Add from Web functionality
+    ===================================================== */
+    await driver.pause(4000);
+
+    await clickElement(
+        'android=new UiSelector().resourceId("plus_open_button")',
+        "Click Add button"
+    );
+ await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Maximize screen"
+    );
+
+    await driver.pause(2000);
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Click Plus button"
+    );
+await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().text("Add from Web")',
+        "Select Add from Web"
+    );
+await driver.pause(2000);
+    const webInput = await $('android=new UiSelector().text("Search by keyword or paste a link")');
+    await webInput.setValue("https://www.fabcycle.shop/");
+    pass("Enter website URL");
+ await driver.pause(4000);
+
+    await clickElement(
+        '~Go',
+        "Click Go button"
+    );
+
+    await driver.pause(4000);
+   await driver.$('~Save').click();
+
+  await $('android=new UiSelector().text("Pick an image to add to journey")').waitForDisplayed({ timeout: 20000 });
+
+    await verifyElement(
+        'android=new UiSelector().textContains("Pick an image")',
+        "Verify image picker screen displayed"
+    );
+
+    await clickElement(
+        'android=new UiSelector().text("Select all images")',
+        "Select all web images"
+    );
+ await driver.pause(2000);
+    await clickElement(
+        '~Next',
+        "Click Next button"
+    );
+
+    const webTitle = await $('android=new UiSelector().text("Title..")');
+    await webTitle.setValue("Web images");
+    pass("Enter title for web images stitchlog");
+ await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(6)',
+        "Save web images stitchlog"
+    );
+
+    await verifyElement(
+        'android=new UiSelector().textContains("Web images")',
+        "Verify Web images stitchlog created"
+    );
+
+    pass("STEP 5 passed — Add from Web working");
+
+
+    /* =====================================================
+       STEP 6: Verify Web image view link working
+    ===================================================== */
+    await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().text("󰌹").instance(0)',
+        "Open web image link"
+    );
+
+    await $('android=new UiSelector().textContains("Textile")')
+    .waitForDisplayed({ timeout: 10000 });
+
+await verifyElement(
+    'android=new UiSelector().textContains("Textile")',
+    "Verify web page opened successfully"
+);
+
+    await clickElement(
+        'android=new UiSelector().text("Close")',
+        "Close web view"
+    );
+ await driver.pause(2000);
+    await verifyElement(
+        'android=new UiSelector().text("Stitchlog")',
+        "Verify navigated back to Stitchlog screen"
+    );
+
+    pass("STEP 6 passed — Web image link working");
+
+
+//     /* =====================================================
+//        STEP 7: Verify Upload from Stash functionality
+//     ===================================================== */
+    await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().resourceId("plus_open_button")',
+        "Click Add button"
+    );
+ await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Maximize screen"
+    );
+
+    await driver.pause(2000);
+
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(2)',
+        "Click Plus button"
+    );
+
+    await clickElement(
+        '~Upload from Stash',
+        "Select Upload from Stash"
+    );
+
+    await verifyElement(
+        'android=new UiSelector().text("Add from Stash")',
+        "Verify Add from Stash screen"
+    );
+ await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(1)',
+        "Select stash item"
+    );
+
+    await driver.pause(2000);
+
+    await clickElement(
+        '~Done',
+        "Confirm stash selection"
+    );
+
+    const stashTitle = await $('android=new UiSelector().text("Title..")');
+    await stashTitle.setValue("Upload from stash");
+    pass("Enter Upload from stash title");
+ await driver.pause(2000);
+    await clickElement(
+        'android=new UiSelector().className("android.widget.ImageView").instance(6)',
+        "Save stash stitchlog"
+    );
+
+    await verifyElement(
+        'android=new UiSelector().textContains("Upload from stash")',
+        "Verify stash stitchlog created"
+    );
+
+    pass("STEP 7 passed — Upload from Stash working");
+
+
+    /* =====================================================
+       STEP 8: Verify Progress Percentage (Hold & Swipe)
+    ===================================================== */
+ await driver.pause(2000);
+ await driver.pause(2000);
+  const sliderEl = await $('android=new UiSelector().className("android.widget.ImageView").instance(0)');
+await sliderEl.waitForDisplayed({ timeout: 10000 });
+
+const location = await sliderEl.getLocation();
+const size = await sliderEl.getSize();
+const screen = await driver.getWindowRect();
+
+const startX = location.x + (size.width * 0.2);     // inside the element
+const endX = screen.width - 20;                     // near right edge of screen
+const centerY = location.y + (size.height / 2);
+
+// Verify initial progress
+await $('android=new UiSelector().text("0%")').waitForDisplayed({ timeout: 10000 });
+await verifyElement(
+    'android=new UiSelector().text("0%")',
+    "Verify initial progress is 0%"
+);
+
+// Hold and swipe to screen end
+await driver.performActions([{
+    type: 'pointer',
+    id: 'finger1',
+    parameters: { pointerType: 'touch' },
+    actions: [
+        { type: 'pointerMove', duration: 0, x: startX, y: centerY },
+        { type: 'pointerDown', button: 0 },
+        { type: 'pause', duration: 600 },
+        { type: 'pointerMove', duration: 1200, x: endX, y: centerY }, // LONG swipe
+        { type: 'pointerUp', button: 0 }
+    ]
+}]);
+
+await driver.releaseActions();
+
+// Verify final progress
+await $('android=new UiSelector().text("100%")').waitForDisplayed({ timeout: 10000 });
+await verifyElement(
+    'android=new UiSelector().text("100%")',
+    "Verify progress reached 100%"
+);
+
+pass("STEP 8 passed — Progress percentage working");
+
+});
 
 
 
