@@ -521,11 +521,11 @@ await verifyElement(
     'android=new UiSelector().text("edit")',
     "Verify edited title is displayed"
 );
-
+await driver.pause(3000);
     /* =====================================================
        STEP 5: Verify More Options Bottom Sheet
     ===================================================== */
-await driver.pause(2000);
+await driver.pause(3000);
     await clickElement(
         'android=new UiSelector().className("android.widget.ImageView").instance(5)',
         "Click on More options"
@@ -541,17 +541,17 @@ await driver.pause(2000);
 //     /* =====================================================
 //        STEP 6: Verify Edit Option Navigation
 //     ===================================================== */
-
+await driver.pause(2000);
     await clickElement(
         '~Edit Item',
         "Click on Edit Item option"
     );
-
+await driver.pause(2000);
     await verifyElement(
         'android=new UiSelector().description("Tag it")',
         "Verify navigation to Edit page"
     );
-
+await driver.pause(2000);
     await clickElement(
         'android=new UiSelector().className("android.view.ViewGroup").instance(8)',
         "Close Edit page"
@@ -562,7 +562,7 @@ await driver.pause(2000);
 //     /* =====================================================
 //        STEP 7: Verify Duplicate Functionality
 //     ===================================================== */
-
+await driver.pause(2000);
     await clickElement(
         'android=new UiSelector().className("android.widget.ImageView").instance(5)',
         "Open More options again"
@@ -572,7 +572,7 @@ await driver.pause(2000);
         '~Duplicate',
         "Click on Duplicate option"
     );
-
+await driver.pause(2000);
     await verifyElement(
         'android=new UiSelector().className("android.view.ViewGroup").instance(71)',
         "Verify duplicate Stitchlog created"
@@ -583,7 +583,7 @@ await driver.pause(2000);
 //     /* =====================================================
 //        STEP 8: Verify Delete Functionality
 //     ===================================================== */
-
+await driver.pause(2000);
     await clickElement(
         'android=new UiSelector().className("android.widget.ImageView").instance(5)',
         "Click on More options for delete"
@@ -614,7 +614,7 @@ it("CASE 6 — Verify Stitchlog search functionality", async () => {
     /* =====================================================
        STEP 1: Add Dummy Data (2 Stitchlogs)
     ===================================================== */
-
+await driver.pause(2000);
     // ---------- First Stitchlog ----------
     await clickElement(
         'android=new UiSelector().className("android.widget.ImageView").instance(6)',
@@ -638,7 +638,7 @@ it("CASE 6 — Verify Stitchlog search functionality", async () => {
         'android=new UiSelector().description("Planning")',
         "Select Planning tag"
     );
-
+await driver.pause(2000);
     await clickElement(
         'android=new UiSelector().className("android.widget.ImageView").instance(7)',
         "Save first stitchlog"
