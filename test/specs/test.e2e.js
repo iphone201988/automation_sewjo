@@ -617,7 +617,7 @@ it("CASE 6 — Verify Stitchlog search functionality", async () => {
 await driver.pause(2000);
     // ---------- First Stitchlog ----------
     await clickElement(
-        'android=new UiSelector().className("android.widget.ImageView").instance(6)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click on Plus button to add first stitchlog"
     );
 
@@ -648,7 +648,7 @@ await driver.pause(2000);
 await driver.pause(2000);
 //     // ---------- Second Stitchlog ----------
     await clickElement(
-        'android=new UiSelector().className("android.view.ViewGroup").instance(84)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click on Plus button to add second stitchlog"
     );
 
@@ -801,7 +801,7 @@ it("CASE 7 — Verify Stitchlog plus (+) functionality", async () => {
     await driver.pause(2000);
 
     await clickElement(
-        'android=new UiSelector().className("android.widget.ImageView").instance(8)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click on Plus button"
     );
 
@@ -895,7 +895,7 @@ it("CASE 7 — Verify Stitchlog plus (+) functionality", async () => {
     ===================================================== */
     await driver.pause(2000);
     await clickElement(
-        'android=new UiSelector().className("android.widget.ImageView").instance(12)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click Add button"
     );
 
@@ -951,7 +951,7 @@ it("CASE 7 — Verify Stitchlog plus (+) functionality", async () => {
     await driver.pause(4000);
 
     await clickElement(
-        'android=new UiSelector().className("android.widget.ImageView").instance(12)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click Add button"
     );
  await driver.pause(2000);
@@ -1054,7 +1054,7 @@ await verifyElement(
 //     ===================================================== */
     await driver.pause(2000);
     await clickElement(
-        'android=new UiSelector().className("android.widget.ImageView").instance(19)',
+        'android=new UiSelector().resourceId("plus_open_button")',
         "Click Add button"
     );
  await driver.pause(2000);
@@ -1112,6 +1112,8 @@ await verifyElement(
     /* =====================================================
        STEP 8: Verify Progress Percentage (Hold & Swipe)
     ===================================================== */
+ await driver.pause(2000);
+ await driver.pause(2000);
   const sliderEl = await $('android=new UiSelector().className("android.widget.ImageView").instance(0)');
 await sliderEl.waitForDisplayed({ timeout: 10000 });
 
